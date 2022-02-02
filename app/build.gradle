@@ -16,6 +16,13 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildTypes.each{
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
+        def nasaApiKey = properties.getProperty("nasa_api_key", "")
+        it.buildConfigField "String", "NASA_API_KEY", nasaApiKey
+    }
+
     buildTypes {
         release {
             minifyEnabled false
