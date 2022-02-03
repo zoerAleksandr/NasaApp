@@ -36,8 +36,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
-
+        setBottomSheetBehavior(binding.includeBottomSheet.bottomSheetContainer)
         viewModel.getData().observe(viewLifecycleOwner, { appState ->
             renderData(appState)
         }
@@ -60,6 +59,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 } else {
                     Log.d("Debug", "Данные получены")
                     binding.imageDay.load(url)
+                    setDataBottomSheet(serverData.title, serverData.explanation)
                 }
             }
             is AppState.Error -> {
@@ -73,5 +73,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun setBottomSheetBehavior(layout: FrameLayout) {
         bottomSheetBehavior = BottomSheetBehavior.from(layout)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
+    private fun setDataBottomSheet(header: String?, desc: String?) {
+        binding.includeBottomSheet.bottomSheetHeader.text =
+            header ?: getString(R.string.header_bottom_sheet_default)
+        binding.includeBottomSheet.bottomSheetText.text =
+            desc ?: getString(R.string.desc_bottom_sheet_default)
     }
 }
