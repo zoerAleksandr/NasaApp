@@ -40,6 +40,7 @@
             android:id="@+id/image_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_input_layout_search"
@@ -65,6 +66,7 @@
         android:backgroundTint="@color/purple_700"
         app:layout_anchor="@id/bottom_app_bar"
         app:srcCompat="@drawable/ic_download_24"
-        app:tint="@color/white"/>
+        android:contentDescription="@string/picture_of_the_day"
+        app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
