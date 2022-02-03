@@ -36,6 +36,43 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            app:singleSelection="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_search">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_day_before"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chip_day_before"
+                app:checkedIconTint="@color/teal_700" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_yesterday"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clip_yesterday"
+                app:checkedIconTint="@color/teal_700" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_today"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/clip_today"
+                app:checkedIconTint="@color/teal_700" />
+
+        </com.google.android.material.chip.ChipGroup>
+
         <com.example.nasaapp.EquilateralImageView
             android:id="@+id/image_day"
             android:layout_width="match_parent"
@@ -43,13 +80,14 @@
             android:layout_marginTop="@dimen/margin_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_layout_search"
+            app:layout_constraintTop_toBottomOf="@id/chip_group"
             app:srcCompat="@drawable/placeholder" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include layout="@layout/bottom_sheet_layout"
-        android:id="@+id/include_bottom_sheet"/>
+    <include
+        android:id="@+id/include_bottom_sheet"
+        layout="@layout/bottom_sheet_layout" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
@@ -64,9 +102,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/purple_700"
+        android:contentDescription="@string/picture_of_the_day"
         app:layout_anchor="@id/bottom_app_bar"
         app:srcCompat="@drawable/ic_download_24"
-        android:contentDescription="@string/picture_of_the_day"
         app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

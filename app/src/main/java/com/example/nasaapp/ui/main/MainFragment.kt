@@ -39,7 +39,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         setBottomSheetBehavior(binding.includeBottomSheet.bottomSheetContainer)
-        viewModel.getData().observe(viewLifecycleOwner, { appState ->
+        viewModel.getDataToday().observe(viewLifecycleOwner, { appState ->
             renderData(appState)
         }
         )
@@ -63,6 +63,26 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
         binding.fab.setOnClickListener {
             binding.root.toast("Загружаю катинку дня")
+        }
+
+        binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.chip_day_before -> {
+                    viewModel.getDataBeforeDay().observe(viewLifecycleOwner, { appState ->
+                        renderData(appState)
+                    })
+                }
+                R.id.chip_yesterday -> {
+                    viewModel.getDataYesterday().observe(viewLifecycleOwner, { appState ->
+                        renderData(appState)
+                    })
+                }
+                R.id.chip_today -> {
+                    viewModel.getDataToday().observe(viewLifecycleOwner, { appState ->
+                        renderData(appState)
+                    })
+                }
+            }
         }
     }
 
