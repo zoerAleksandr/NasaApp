@@ -3,4 +3,8 @@
     <string name="picture_of_the_day">Картинка дня</string>
     <string name="header_bottom_sheet_default">Название недоступно</string>
     <string name="desc_bottom_sheet_default">Описание недоступно</string>
+    <string name="menu_appbar_title_favorite">favorite</string>
+    <string name="menu_appbar_title_profile">profile</string>
+    <string name="menu_navigation_title_favorite">Список избранных</string>
+    <string name="menu_navigation_title_setting">Настройки</string>
 </resources>

@@ -57,7 +57,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:backgroundTint="@color/teal_700"
-        app:fabAlignmentMode="end"
         app:navigationIcon="@drawable/ic_menu_24" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
