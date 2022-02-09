@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_fragment_subtitle_changed_theme">Выбор темы</string>
+    <string name="settings_fragment_radio_btn_text_mars">Марсианская</string>
+    <string name="settings_fragment_radio_btn_text_moon">Лунная</string>
+    <string name="settings_fragment_radio_btn_text_default">Стандартная</string>
+    <string name="settings_fragment_app_bar_btn_save_text">Готово</string>
+</resources>

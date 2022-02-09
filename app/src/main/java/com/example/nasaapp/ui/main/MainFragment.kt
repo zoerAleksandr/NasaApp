@@ -4,7 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -28,59 +31,54 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
     private val binding: MainFragmentBinding by viewBinding()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         setBottomSheetBehavior(binding.includeBottomSheet.bottomSheetContainer)
         viewModel.getDataToday().observe(viewLifecycleOwner, { appState ->
             renderData(appState)
-        }
-        )
+        })
         setAppBar()
 
-        binding.textInputLayoutSearch.setStartIconOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data =
-                    Uri.parse("https://en.wikipedia.org/wiki/${binding.textSearch.text.toString()}")
-            })
-        }
-
-        binding.bottomAppBar.setNavigationOnClickListener {
-            activity?.supportFragmentManager?.let { fragmentManager ->
-                NavigationViewFragment().show(
-                    fragmentManager,
-                    "tag"
-                )
+        binding.apply {
+            textInputLayoutSearch.setStartIconOnClickListener {
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data =
+                        Uri.parse("https://en.wikipedia.org/wiki/${binding.textSearch.text.toString()}")
+                })
             }
-        }
 
-        binding.fab.setOnClickListener {
-            binding.root.toast("Загружаю катинку дня")
-        }
+            bottomAppBar.setNavigationOnClickListener {
+                activity?.supportFragmentManager?.let { fragmentManager ->
+                    NavigationViewFragment()
+                        .show(
+                            fragmentManager,
+                            "tag"
+                        )
+                }
+            }
 
-        binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.chip_day_before -> {
-                    viewModel.getDataBeforeDay().observe(viewLifecycleOwner, { appState ->
-                        renderData(appState)
-                    })
-                }
-                R.id.chip_yesterday -> {
-                    viewModel.getDataYesterday().observe(viewLifecycleOwner, { appState ->
-                        renderData(appState)
-                    })
-                }
-                R.id.chip_today -> {
-                    viewModel.getDataToday().observe(viewLifecycleOwner, { appState ->
-                        renderData(appState)
-                    })
+            fab.setOnClickListener {
+                binding.root.toast("Загружаю катинку дня")
+            }
+
+            chipGroup.setOnCheckedChangeListener { _, checkedId ->
+                when (checkedId) {
+                    R.id.chip_day_before -> {
+                        viewModel.getDataBeforeDay().observe(viewLifecycleOwner, { appState ->
+                            renderData(appState)
+                        })
+                    }
+                    R.id.chip_yesterday -> {
+                        viewModel.getDataYesterday().observe(viewLifecycleOwner, { appState ->
+                            renderData(appState)
+                        })
+                    }
+                    R.id.chip_today -> {
+                        viewModel.getDataToday().observe(viewLifecycleOwner, { appState ->
+                            renderData(appState)
+                        })
+                    }
                 }
             }
         }
@@ -145,5 +143,4 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         context.setSupportActionBar(binding.bottomAppBar)
         setHasOptionsMenu(true)
     }
-
 }

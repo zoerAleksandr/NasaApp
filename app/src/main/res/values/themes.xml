@@ -12,5 +12,59 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorBackground">@color/white</item>
+    </style>
+    <!-- My Theme Mars -->
+    <style name="Theme.Mars" parent="Theme.NasaApp">
+        <!-- Override primary color -->
+        <item name="colorPrimary">@color/red_mars_500</item>
+        <item name="colorPrimaryVariant">@color/red_mars_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Custom attr -->
+        <item name="colorBackground">@color/red_mars_50</item>
+        <item name="colorSurface">@color/red_mars_100</item>
+        <item name="textColorPrimary">@color/red_mars_900</item>
+        <item name="textColorSecondary">@color/red_mars_50</item>
+
+    </style>
+
+    <!--My Theme Moon-->
+    <style name="Theme.Moon" parent="Theme.NasaApp">
+        <!-- Override primary color -->
+        <item name="colorPrimary">@color/gray_moon_500</item>
+        <item name="colorPrimaryVariant">@color/gray_moon_700</item>
+
+        <!-- Custom attr -->
+        <item name="colorBackground">@color/gray_moon_100</item>
+        <item name="colorSurface">@color/gray_moon_200</item>
+        <item name="textColorPrimary">@color/gray_moon_900</item>
+        <item name="textColorSecondary">@color/gray_moon_50</item>
+    </style>
+
+    <!-- Style for Chip Choice -->
+    <style name="MyChipChoice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/color_background_chip_choice_selector</item>
+        <item name="android:textColor">@color/color_text_chip_choice_selector</item>
+        <item name="shapeAppearance">@style/MyShape</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeColor">@color/color_stroke_chip_choice_selector</item>
+    </style>
+
+    <!-- Shape Appearance-->
+    <style name="MyShape" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSizeTopLeft">0dp</item>
+    </style>
+
+    <style name="TextSubtitleSettingsFragment" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/color_for_text_dark</item>
+        <item name="android:fontFamily">@font/comfortaa_bold</item>
+    </style>
+
+    <style name="TextSettingsFragment" parent="TextSubtitleSettingsFragment">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/comfortaa_light</item>
+
     </style>
 </resources>
