@@ -12,6 +12,7 @@
     <color name="purple_light">#A098F4</color>
     <color name="gray">#E7E7F1</color>
     <color name="color_for_text_dark">#303030</color>
+    <color name="gray_for_shimmer">#C8C8C8</color>
 
     <!--Color for Theme.Moon Day-->
     <color name="gray_moon_900">#2C3C43</color>

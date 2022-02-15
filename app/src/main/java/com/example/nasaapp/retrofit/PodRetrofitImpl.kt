@@ -12,33 +12,23 @@ class PodRetrofitImpl {
 
     private val baseUrl = "https://api.nasa.gov/"
 
-    fun getRetrofitTodayImpl(): PodTodayAPI {
+    fun getPodRetrofitImpl(): PodAPI {
         val podRetrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .client(createOkHttpClient(PodInterceptor()))
             .build()
-        return podRetrofit.create(PodTodayAPI::class.java)
+        return podRetrofit.create(PodAPI::class.java)
     }
 
-    fun getRetrofitYesterdayImpl(): PodYesterdayAPI {
-        val podRetrofit = Retrofit.Builder()
+    fun getMarsPhotoRetrofitImpl(): MarsPhotoAPI {
+        val marsPhotoRetrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .client(createOkHttpClient(PodInterceptor()))
             .build()
-        return podRetrofit.create(PodYesterdayAPI::class.java)
+        return marsPhotoRetrofit.create(MarsPhotoAPI::class.java)
     }
-
-    fun getRetrofitBeforeDayImpl(): PodBeforeDayAPI {
-        val podRetrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .client(createOkHttpClient(PodInterceptor()))
-            .build()
-        return podRetrofit.create(PodBeforeDayAPI::class.java)
-    }
-
 
     private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {
         val httpClient = OkHttpClient.Builder()

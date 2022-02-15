@@ -8,33 +8,29 @@
     android:background="?colorBackground"
     tools:context=".ui.main.MainFragment">
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone">
+
+        <include layout="@layout/shimmer_layout" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_main_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_search"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_16"
-            app:boxCornerRadiusBottomEnd="@dimen/radius_input_layout"
-            app:boxCornerRadiusBottomStart="@dimen/radius_input_layout"
-            app:boxCornerRadiusTopEnd="@dimen/radius_input_layout"
-            app:boxCornerRadiusTopStart="@dimen/radius_input_layout"
-            app:endIconMode="clear_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:placeholderText="Введите запрос"
-            app:startIconDrawable="@drawable/ic_search_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group"
@@ -43,7 +39,7 @@
             android:layout_marginTop="@dimen/margin_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_layout_search"
+            app:layout_constraintTop_toBottomOf="@id/image_day"
             app:selectionRequired="true"
             app:singleSelection="true">
 
@@ -71,14 +67,28 @@
 
         </com.google.android.material.chip.ChipGroup>
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicatorAnimationMode="elastic"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="3dp" />
+
         <com.example.nasaapp.EquilateralImageView
             android:id="@+id/image_day"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_16"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@id/guideline_top"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chip_group"
+            app:layout_constraintTop_toBottomOf="@id/tab_layout"
             app:srcCompat="@drawable/placeholder" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
