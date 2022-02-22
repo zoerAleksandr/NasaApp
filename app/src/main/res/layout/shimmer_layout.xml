@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top"
+        android:id="@+id/guideline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -38,10 +38,47 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:src="@drawable/placeholder"
-        app:layout_constraintBottom_toTopOf="@id/guideline_top"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tab_layout_shimmer" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group_shimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            style="@style/MyChipChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chip_video" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/MyChipChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chip_day_before" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/MyChipChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clip_yesterday" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/MyChipChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clip_today" />
+
+    </com.google.android.material.chip.ChipGroup>
 
     <View
         android:layout_width="match_parent"

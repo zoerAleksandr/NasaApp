@@ -19,4 +19,7 @@
 
     <string name="tab_earth">Фото дня</string>
     <string name="tab_mars">Марс</string>
+    <string name="chip_video">Видео</string>
+    <string name="placeholder_for_search_layout">Введите запрос</string>
+    <string name="btn_text_reload">Обновить</string>
 </resources>
