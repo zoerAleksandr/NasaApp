@@ -1,11 +1,13 @@
-package com.example.nasaapp.ui.main
+package com.example.nasaapp.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nasaapp.*
-import com.example.nasaapp.retrofit.PodRetrofitImpl
+import com.example.nasaapp.model.MarsPhotoListDTO
+import com.example.nasaapp.model.PodDTO
+import com.example.nasaapp.model.PodRetrofitImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,15 +15,15 @@ import retrofit2.Response
 class MainViewModel(
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData(),
     private val retrofitImpl: PodRetrofitImpl = PodRetrofitImpl(),
-    var resource: Resource = Resource.Earth
+    var resource: SelectedTab = SelectedTab.Earth
 ) : ViewModel() {
 
     private val apiKey: String = BuildConfig.NASA_API_KEY
 
     fun getData(date: String): LiveData<AppState> {
         when (resource) {
-            is Resource.Earth -> sendServerRequestPOD(date)
-            is Resource.Mars -> sendServerRequestMarsPhoto(date)
+            is SelectedTab.Earth -> sendServerRequestPOD(date)
+            is SelectedTab.Mars -> sendServerRequestMarsPhoto(date)
         }
         return liveDataToObserve
     }

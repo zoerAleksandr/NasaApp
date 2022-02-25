@@ -1,6 +1,5 @@
-package com.example.nasaapp.retrofit
+package com.example.nasaapp.model
 
-import com.example.nasaapp.PodDTO
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

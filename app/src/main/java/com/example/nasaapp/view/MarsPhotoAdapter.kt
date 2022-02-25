@@ -1,10 +1,10 @@
-package com.example.nasaapp.ui.main
+package com.example.nasaapp.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.nasaapp.PodMarsPhotoDTO
+import com.example.nasaapp.model.PodMarsPhotoDTO
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ItemPhotoBinding
 
@@ -19,7 +19,7 @@ class MarsPhotoAdapter : RecyclerView.Adapter<MarsPhotoAdapter.MarsPhotoViewHold
     inner class MarsPhotoViewHolder(private val binding: ItemPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(marsPhotoDTO: PodMarsPhotoDTO) {
-            binding.itemImage.load(marsPhotoDTO.image){
+            binding.itemImage.load(marsPhotoDTO.image) {
                 placeholder(R.drawable.placeholder)
             }
             myListener?.newData(marsPhotoDTO.earthDate)
@@ -41,12 +41,12 @@ class MarsPhotoAdapter : RecyclerView.Adapter<MarsPhotoAdapter.MarsPhotoViewHold
 
     override fun getItemCount() = photos.size
 
-    fun setData(photos: List<PodMarsPhotoDTO>){
+    fun setData(photos: List<PodMarsPhotoDTO>) {
         this.photos = photos
         notifyDataSetChanged()
     }
 }
 
-fun interface MyListener{
+fun interface MyListener {
     fun newData(date: String?)
 }

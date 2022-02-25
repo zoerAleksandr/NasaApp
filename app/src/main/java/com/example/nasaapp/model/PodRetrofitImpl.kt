@@ -1,4 +1,4 @@
-package com.example.nasaapp.retrofit
+package com.example.nasaapp.model
 
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor

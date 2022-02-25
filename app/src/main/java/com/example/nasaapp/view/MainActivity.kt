@@ -1,8 +1,9 @@
-package com.example.nasaapp
+package com.example.nasaapp.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.nasaapp.ui.main.MainFragment
+import com.example.nasaapp.R
+import com.example.nasaapp.view.MainFragment
 
 const val THEME_ID = "THEME_ID"
 

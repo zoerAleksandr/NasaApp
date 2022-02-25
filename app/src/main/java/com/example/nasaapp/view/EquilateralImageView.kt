@@ -1,4 +1,4 @@
-package com.example.nasaapp
+package com.example.nasaapp.view
 
 import android.content.Context
 import android.util.AttributeSet

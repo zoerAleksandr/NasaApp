@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorBackground"
-    tools:context=".ui.main.MainFragment">
+    tools:context=".view.MainFragment">
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_container"
@@ -125,7 +125,7 @@
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorHeight="@dimen/indicator_height" />
 
-        <com.example.nasaapp.EquilateralImageView
+        <com.example.nasaapp.view.EquilateralImageView
             android:id="@+id/image_day"
             android:layout_width="match_parent"
             android:layout_height="0dp"

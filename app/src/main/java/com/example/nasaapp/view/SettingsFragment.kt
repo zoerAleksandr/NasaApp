@@ -1,4 +1,4 @@
-package com.example.nasaapp.ui.main
+package com.example.nasaapp.view
 
 import android.content.Context
 import android.content.Intent
@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.nasaapp.MainActivity
 import com.example.nasaapp.R
-import com.example.nasaapp.THEME_ID
 import com.example.nasaapp.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {

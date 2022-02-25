@@ -1,4 +1,6 @@
-package com.example.nasaapp
+package com.example.nasaapp.viewmodel
+
+import com.example.nasaapp.model.AbstractDTO
 
 sealed class AppState {
     data class Success(val podDTO: AbstractDTO) : AppState()

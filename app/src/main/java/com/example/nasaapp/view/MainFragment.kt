@@ -1,4 +1,4 @@
-package com.example.nasaapp.ui.main
+package com.example.nasaapp.view
 
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +16,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.example.nasaapp.*
 import com.example.nasaapp.databinding.MainFragmentBinding
+import com.example.nasaapp.model.*
+import com.example.nasaapp.viewmodel.AppState
+import com.example.nasaapp.viewmodel.MainViewModel
+import com.example.nasaapp.viewmodel.SelectedTab
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayout
 import com.google.android.youtube.player.YouTubeIntents
@@ -84,11 +88,11 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
                         if (tab != null) {
                             when (tab.position) {
                                 0 -> {
-                                    viewModel.resource = Resource.Earth
+                                    viewModel.resource = SelectedTab.Earth
                                     binding.chipVideo.show()
                                 }
                                 1 -> {
-                                    viewModel.resource = Resource.Mars
+                                    viewModel.resource = SelectedTab.Mars
                                     binding.chipVideo.hide()
                                 }
                             }
