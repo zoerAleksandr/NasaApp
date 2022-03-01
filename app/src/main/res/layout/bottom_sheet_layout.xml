@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shape_bottom_sheet"
+    android:maxHeight="@dimen/value_behavior_max_height"
     app:behavior_peekHeight="@dimen/value_behavior_peek_height"
     app:layout_behavior="@string/bottom_sheet_behavior">
 

@@ -8,4 +8,14 @@
     <dimen name="fragment_settings_padding_main">16dp</dimen>
     <dimen name="size_for_tab_indicator_shimmer">6dp</dimen>
     <dimen name="value_behavior_peek_height">280dp</dimen>
+
+    // for item recyclerView
+    <dimen name="value_layout_width_item">350dp</dimen>
+    <dimen name="value_layout_height_item">250dp</dimen>
+    <dimen name="value_distance_item">16dp</dimen>
+
+    // tabLayout
+    <dimen name="indicator_height">3dp</dimen>
+    <dimen name="margin_top_text_input_layout">16dp</dimen>
+    <dimen name="value_btn">48dp</dimen>
 </resources>

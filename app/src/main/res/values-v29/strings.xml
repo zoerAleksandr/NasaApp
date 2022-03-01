@@ -6,4 +6,6 @@
     <string name="settings_fragment_radio_btn_text_default">Стандартная</string>
     <string name="settings_fragment_app_bar_btn_save_text">Готово</string>
     <string name="menu_appbar_title_search">search</string>
+    <string name="chip_video">Видео</string>
+    <string name="btn_text_reload">Обновить</string>
 </resources>

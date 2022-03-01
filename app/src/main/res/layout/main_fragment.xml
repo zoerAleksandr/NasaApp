@@ -19,18 +19,57 @@
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/container_main_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/main_fragment_search_scene">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_top"
+            android:id="@+id/guideline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
+
+        <ImageButton
+            android:id="@+id/btn_back_input_layout"
+            android:layout_width="@dimen/value_btn"
+            android:layout_height="@dimen/value_btn"
+            android:layout_marginVertical="@dimen/margin_top_text_input_layout"
+            android:layout_marginStart="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_back_24"
+            android:backgroundTint="@color/transparent"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/text_input_layout_search"
+            app:layout_constraintEnd_toStartOf="@id/text_input_layout_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_input_layout_search" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_search"
+            style="@style/StyleSearchInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_top_text_input_layout"
+            android:layout_marginVertical="@dimen/margin_top_text_input_layout"
+            android:orientation="horizontal"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_back_input_layout"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group"
@@ -39,9 +78,16 @@
             android:layout_marginTop="@dimen/margin_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_day"
+            app:layout_constraintTop_toBottomOf="@id/guideline"
             app:selectionRequired="true"
             app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_video"
+                style="@style/MyChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chip_video" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_day_before"
@@ -77,21 +123,50 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tabIndicatorAnimationMode="elastic"
             app:tabIndicatorFullWidth="false"
-            app:tabIndicatorHeight="3dp" />
+            app:tabIndicatorHeight="@dimen/indicator_height" />
 
         <com.example.nasaapp.EquilateralImageView
             android:id="@+id/image_day"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="16dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@id/guideline_top"
+            app:layout_constraintBottom_toTopOf="@id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_layout"
             app:srcCompat="@drawable/placeholder" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/play_video"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_play_24"
+            android:scaleType="centerCrop"
+            android:backgroundTint="@color/transparent"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_layout"
+            tools:listitem="@layout/item_photo" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
     <include
         android:id="@+id/include_bottom_sheet"
@@ -115,4 +190,28 @@
         app:srcCompat="@drawable/ic_download_24"
         app:tint="@color/white" />
 
+    <LinearLayout
+        android:id="@+id/error_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/text_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            tools:text="@tools:sample/lorem/random" />
+
+        <Button
+            android:id="@+id/btn_reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/btn_text_reload" />
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
