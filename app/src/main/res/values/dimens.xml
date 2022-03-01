@@ -5,4 +5,5 @@
     <dimen name="header_text_size">18sp</dimen>
     <dimen name="text_size">16sp</dimen>
     <dimen name="corners_bottom_sheet">25dp</dimen>
+    <dimen name="fragment_settings_padding_main">16dp</dimen>
 </resources>

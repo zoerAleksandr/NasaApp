@@ -6,8 +6,44 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="dark_gray">#2C2C2C</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple">#28235F</color>
     <color name="purple_light">#A098F4</color>
     <color name="gray">#E7E7F1</color>
+    <color name="color_for_text_dark">#303030</color>
+
+    <!--Color for Theme.Moon Day-->
+    <color name="gray_moon_900">#2C3C43</color>
+    <color name="gray_moon_700">#455a64</color>
+    <color name="gray_moon_500">#9e9e9e</color>
+    <color name="gray_moon_200">#eeeeee</color>
+    <color name="gray_moon_100">#f5f5f5</color>
+    <color name="gray_moon_50">#FFFFFF</color>
+
+    <!--Color for Theme.Moon Night-->
+    <color name="gray_moon_dark_900">#445157</color>
+    <color name="gray_moon_dark_700">#203742</color>
+    <color name="gray_moon_dark_500">#2E4857</color>
+    <color name="gray_moon_dark_200">#9e9e9e</color>
+    <color name="gray_moon_dark_100">#455a64</color>
+    <color name="gray_moon_dark_50">#2C3C43</color>
+
+    <!--Color for Theme.Mars Day-->
+    <color name="red_mars_900">#591C09</color>
+    <color name="red_mars_700">#e64a19</color>
+    <color name="red_mars_500">#ff9800</color>
+    <color name="red_mars_200">#ffcc80</color>
+    <color name="red_mars_100">#ffe0b2</color>
+    <color name="red_mars_50">#F8EEE0</color>
+
+    <!--Color for Theme.Mars Night-->
+    <color name="red_mars_dark_900">#BC4A27</color>
+    <color name="red_mars_dark_700">#802F15</color>
+    <color name="red_mars_dark_500">#A66300</color>
+    <color name="red_mars_dark_200">#8A6B3D</color>
+    <color name="red_mars_dark_100">#67481A</color>
+    <color name="red_mars_dark_50">#DCCCAF</color>
+
+
 </resources>

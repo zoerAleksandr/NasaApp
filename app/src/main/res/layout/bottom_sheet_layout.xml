@@ -12,6 +12,7 @@
     <View
         android:layout_width="25dp"
         android:layout_height="1dp"
+        android:backgroundTint="?attr/colorPrimaryVariant"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
         android:background="#663b4351" />

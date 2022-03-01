@@ -12,5 +12,36 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorBackground">@color/dark_gray</item>
     </style>
+
+    <!-- My Theme Mars -->
+    <style name="Theme.Mars" parent="Theme.NasaApp">
+        <!-- Override primary color -->
+        <item name="colorPrimary">@color/red_mars_dark_500</item>
+        <item name="colorPrimaryVariant">@color/red_mars_dark_700</item>
+        <item name="colorOnPrimary">@color/red_mars_dark_50</item>
+
+        <!-- Custom attr -->
+        <item name="colorBackground">@color/red_mars_dark_50</item>
+        <item name="colorSurface">@color/red_mars_dark_100</item>
+        <item name="textColorPrimary">@color/red_mars_dark_900</item>
+        <item name="textColorSecondary">@color/red_mars_dark_50</item>
+    </style>
+
+
+    <!--My Theme Moon-->
+    <style name="Theme.Moon" parent="Theme.NasaApp">
+        <!-- Override primary color -->
+        <item name="colorPrimary">@color/gray_moon_dark_500</item>
+        <item name="colorPrimaryVariant">@color/gray_moon_dark_700</item>
+        <item name="colorOnPrimary">@color/gray_moon_dark_200</item>
+
+        <!-- Custom attr -->
+        <item name="colorBackground">@color/gray_moon_dark_100</item>
+        <item name="colorSurface">@color/gray_moon_dark_200</item>
+        <item name="textColorPrimary">@color/gray_moon_dark_900</item>
+        <item name="textColorSecondary">@color/gray_moon_dark_50</item>
+    </style>
+
 </resources>

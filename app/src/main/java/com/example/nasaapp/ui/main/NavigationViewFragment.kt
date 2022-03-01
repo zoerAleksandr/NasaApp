@@ -1,7 +1,9 @@
 package com.example.nasaapp.ui.main
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.NavigationLayoutBinding
@@ -20,15 +22,20 @@ class NavigationViewFragment : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.navigation_layout, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        binding.navigationView.setNavigationItemSelectedListener {
-            when(it.itemId){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.navigationView.setNavigationItemSelectedListener { menu ->
+            when (menu.itemId) {
                 R.id.menu_navigation_view_favorite -> {
                     binding.root.toast("Открываю список избранных картинок")
                 }
                 R.id.menu_navigation_view_setting -> {
-                    binding.root.toast("Открываю экран настроек")
+                    activity?.let {
+                        it.supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, SettingsFragment.newInstance())
+                            .commit()
+                        onDestroyView()
+                    }
                 }
             }
             true
