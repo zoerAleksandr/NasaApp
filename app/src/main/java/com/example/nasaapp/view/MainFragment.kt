@@ -6,15 +6,20 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.AnticipateOvershootInterpolator
+import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
+import androidx.transition.ChangeBounds
+import androidx.transition.TransitionManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
-import com.example.nasaapp.*
+import com.example.nasaapp.R
 import com.example.nasaapp.databinding.MainFragmentBinding
 import com.example.nasaapp.model.*
 import com.example.nasaapp.viewmodel.AppState
@@ -37,6 +42,8 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
     private val binding: MainFragmentBinding by viewBinding()
     private val adapter = MarsPhotoAdapter.newInstance()
+    private var fullScreen = false
+    private var searchVisible = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -119,8 +126,13 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
             }
 
             btnBackInputLayout.setOnClickListener {
-                binding.containerMainFragment.transitionToStart()
-                binding.includeBottomSheet.root.show()
+                hideSearch()
+            }
+
+            imageDay.setOnClickListener {
+                changeImageSize(containerMainFragment, imageDay, fullScreen)
+                slideDown(main, includeBottomSheet.root, fullScreen)
+                fullScreen = !fullScreen
             }
         }
     }
@@ -250,12 +262,35 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
                 binding.root.toast("Открыл профиль")
             }
             R.id.search_wiki -> {
-                binding.containerMainFragment.transitionToEnd()
-                binding.includeBottomSheet.root.hide()
-                binding.textSearch.requestFocus()
+                if (searchVisible) hideSearch() else showSearch()
+                searchVisible = !searchVisible
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showSearch() {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(requireContext(), R.layout.main_fragment_search)
+
+        val transition = ChangeBounds().also {
+            it.duration = 1200
+            it.interpolator = AnticipateOvershootInterpolator(0.5f)
+        }
+        TransitionManager.beginDelayedTransition(binding.containerMainFragment, transition)
+        constraintSet.applyTo(binding.containerMainFragment)
+    }
+
+    private fun hideSearch() {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(requireContext(), R.layout.main_fragment_container)
+
+        val transition = ChangeBounds().also {
+            it.duration = 1200
+            it.interpolator = OvershootInterpolator(0.5f)
+        }
+        TransitionManager.beginDelayedTransition(binding.containerMainFragment, transition)
+        constraintSet.applyTo(binding.containerMainFragment)
     }
 
     private fun setAppBar() {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.NavigationLayoutBinding
+import com.example.nasaapp.model.hide
 import com.example.nasaapp.model.toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -34,6 +35,7 @@ class NavigationViewFragment : BottomSheetDialogFragment() {
                         it.supportFragmentManager.beginTransaction()
                             .replace(R.id.container, SettingsFragment.newInstance())
                             .commit()
+                        binding.root.hide()
                         onDestroyView()
                     }
                 }

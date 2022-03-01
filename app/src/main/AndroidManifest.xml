@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NasaApp">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:configChanges="uiMode"
             android:exported="true">
             <intent-filter>

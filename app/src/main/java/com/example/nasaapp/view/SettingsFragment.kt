@@ -23,41 +23,41 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         val styleId = activity?.let {
             it.getPreferences(Context.MODE_PRIVATE)?.getInt(THEME_ID, R.style.Theme_NasaApp)
         }
-
-        val radioId = when (styleId) {
-            R.style.Theme_NasaApp -> R.id.radio_btn_default_theme
-            R.style.Theme_Mars -> R.id.radio_btn_mars_theme
-            R.style.Theme_Moon -> R.id.radio_btn_moon_theme
-            else -> -1
+        when (styleId) {
+            R.style.Theme_Mars -> {
+                binding.cardMoon.alpha = 0.3f
+            }
+            R.style.Theme_Moon -> {
+                binding.cardMars.alpha = 0.3f
+            }
         }
-        binding.radioGroupChangedTheme.check(radioId)
 
-        binding.radioGroupChangedTheme.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.radio_btn_default_theme -> {
-                    activity?.let {
-                        with(it.getPreferences(Context.MODE_PRIVATE).edit()) {
-                            putInt(THEME_ID, R.style.Theme_NasaApp)
-                            apply()
-                        }
-                    }
+        binding.cardMars.setOnClickListener {
+            activity?.let {
+                with(it.getPreferences(Context.MODE_PRIVATE).edit()) {
+                    putInt(THEME_ID, R.style.Theme_Mars)
+                    apply()
                 }
-                R.id.radio_btn_mars_theme -> {
-                    activity?.let {
-                        with(it.getPreferences(Context.MODE_PRIVATE).edit()) {
-                            putInt(THEME_ID, R.style.Theme_Mars)
-                            apply()
-                        }
-                    }
+                binding.cardMars.animate()
+                    .alpha(1f)
+                binding.cardMoon.animate()
+                    .alpha(0.3f)
+                requireActivity().recreate()
+
+            }
+        }
+
+        binding.cardMoon.setOnClickListener {
+            activity?.let {
+                with(it.getPreferences(Context.MODE_PRIVATE).edit()) {
+                    putInt(THEME_ID, R.style.Theme_Moon)
+                    apply()
                 }
-                R.id.radio_btn_moon_theme -> {
-                    activity?.let {
-                        with(it.getPreferences(Context.MODE_PRIVATE).edit()) {
-                            putInt(THEME_ID, R.style.Theme_Moon)
-                            apply()
-                        }
-                    }
-                }
+                binding.cardMoon.animate()
+                    .alpha(1f)
+                binding.cardMars.animate()
+                    .alpha(0.3f)
+                requireActivity().recreate()
             }
         }
 
