@@ -1,7 +1,5 @@
 package com.example.nasaapp.ui.main
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -14,17 +12,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
-import com.example.nasaapp.AppState
-import com.example.nasaapp.MainActivity
-import com.example.nasaapp.R
+import com.example.nasaapp.*
 import com.example.nasaapp.databinding.MainFragmentBinding
-import com.example.nasaapp.toast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.tabs.TabLayout
 
 class MainFragment : Fragment(R.layout.main_fragment) {
 
     companion object {
         fun newInstance() = MainFragment()
+
+        const val EARTH = R.string.tab_earth
+        const val MARS = R.string.tab_mars
     }
 
     private lateinit var viewModel: MainViewModel
@@ -35,19 +34,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         setBottomSheetBehavior(binding.includeBottomSheet.bottomSheetContainer)
-        viewModel.getDataToday().observe(viewLifecycleOwner, { appState ->
+        viewModel.getData(getToday()).observe(viewLifecycleOwner, { appState ->
             renderData(appState)
         })
         setAppBar()
 
         binding.apply {
-            textInputLayoutSearch.setStartIconOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    data =
-                        Uri.parse("https://en.wikipedia.org/wiki/${binding.textSearch.text.toString()}")
-                })
-            }
-
             bottomAppBar.setNavigationOnClickListener {
                 activity?.supportFragmentManager?.let { fragmentManager ->
                     NavigationViewFragment()
@@ -65,21 +57,42 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             chipGroup.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     R.id.chip_day_before -> {
-                        viewModel.getDataBeforeDay().observe(viewLifecycleOwner, { appState ->
-                            renderData(appState)
-                        })
+                        viewModel.getData(getBeforeDay())
                     }
                     R.id.chip_yesterday -> {
-                        viewModel.getDataYesterday().observe(viewLifecycleOwner, { appState ->
-                            renderData(appState)
-                        })
+                        viewModel.getData(getYesterday())
                     }
                     R.id.chip_today -> {
-                        viewModel.getDataToday().observe(viewLifecycleOwner, { appState ->
-                            renderData(appState)
-                        })
+                        viewModel.getData(getToday())
                     }
                 }
+            }
+
+            tabLayout.apply {
+                addTab(tabLayout.newTab().setText(EARTH), 0, true)
+                addTab(tabLayout.newTab().setText(MARS), 1, false)
+
+                addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                    override fun onTabSelected(tab: TabLayout.Tab?) {
+                        if (tab != null) {
+                            when (tab.position) {
+                                0 -> viewModel.resource = Resource.Earth
+                                1 -> viewModel.resource = Resource.Mars
+                            }
+                        }
+                        viewModel.getData(getToday())
+                        chipGroup.check(R.id.chip_today)
+                    }
+
+                    override fun onTabUnselected(tab: TabLayout.Tab?) {
+                        // нечего делать
+                    }
+
+                    override fun onTabReselected(tab: TabLayout.Tab?) {
+                        // нечего делать
+                    }
+
+                })
             }
         }
     }
@@ -87,19 +100,47 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Loading -> {
-                Log.d("Debug", "Загрузка")
-                binding.root.toast("Загрузка")
+                setViewStateLoading(
+                    binding.containerMainFragment,
+                    binding.includeBottomSheet.root,
+                    binding.shimmerContainer,
+                    binding
+                )
             }
             is AppState.Success -> {
-                val serverData = appState.podDTO
-                val url = serverData.url
-                if (url.isNullOrEmpty()) {
-                    Log.d("Debug", "URL пустой")
-                    Toast.makeText(requireContext(), "Ошибка загрузки", Toast.LENGTH_LONG).show()
-                } else {
-                    Log.d("Debug", "Данные получены")
-                    binding.imageDay.load(url)
-                    setDataBottomSheet(serverData.title, serverData.explanation)
+                setViewStateSuccess(
+                    binding.containerMainFragment,
+                    binding.includeBottomSheet.root,
+                    binding.shimmerContainer,
+                    binding
+                )
+
+                when (val serverData = appState.podDTO) {
+                    is PodDTO -> {
+                        val url = serverData.url
+                        if (url.isNullOrEmpty()) {
+                            Log.d("Debug", "URL пустой")
+                        } else {
+                            binding.imageDay.load(url)
+                            setDataBottomSheet(serverData.title, serverData.explanation)
+                        }
+                    }
+
+                    is MarsPhotoListDTO -> {
+                        val photos = serverData.photos
+                        if (photos != null && photos.isNotEmpty()) {
+                            Log.d("Debug", "${photos.size}")
+                            binding.imageDay.load(photos[0].image)
+                            setDataBottomSheet(serverData.photos[0].earthDate, "")
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Фото из Марса еще в пути",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            viewModel.getData(getYesterday())
+                        }
+                    }
                 }
             }
             is AppState.Error -> {
@@ -134,6 +175,14 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             R.id.menu_appbar_profile -> {
                 binding.root.toast("Открыл профиль")
             }
+            R.id.search_wiki -> {
+                activity?.let {
+                    it.supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, SearchFragment())
+                        .addToBackStack("search")
+                        .commit()
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -144,3 +193,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         setHasOptionsMenu(true)
     }
 }
+
+// https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?&earth_date=2022-02-15&api_key=KFv7eZfX45YyqYvqsemofOOzMnzELbhSpfG1UX42
+// https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2022-2-15&api_key=DEMO_KEY
+
+// https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2022-02-15&api_key=KFv7eZfX45YyqYvqsemofOOzMnzELbhSpfG1UX42

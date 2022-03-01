@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_search"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_16"
+        app:boxCornerRadiusBottomEnd="@dimen/radius_input_layout"
+        app:boxCornerRadiusBottomStart="@dimen/radius_input_layout"
+        app:boxCornerRadiusTopEnd="@dimen/radius_input_layout"
+        app:boxCornerRadiusTopStart="@dimen/radius_input_layout"
+        app:endIconMode="clear_text"
+        app:placeholderText="Введите запрос"
+        app:startIconDrawable="@drawable/ic_search_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
+</FrameLayout>

@@ -15,4 +15,8 @@
     <string name="settings_fragment_radio_btn_text_moon">Лунная</string>
     <string name="settings_fragment_radio_btn_text_default">Стандартная</string>
     <string name="settings_fragment_app_bar_btn_save_text">Готово</string>
+    <string name="menu_appbar_title_search">search</string>
+
+    <string name="tab_earth">Фото дня</string>
+    <string name="tab_mars">Марс</string>
 </resources>

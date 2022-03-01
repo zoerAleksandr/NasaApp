@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="fragment_settings_padding_main">16dp</dimen>
+    <dimen name="size_for_tab_indicator_shimmer">6dp</dimen>
+    <dimen name="value_behavior_peek_height">280dp</dimen>
 </resources>

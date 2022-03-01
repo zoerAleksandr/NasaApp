@@ -13,4 +13,10 @@
         android:title="@string/menu_appbar_title_profile"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/search_wiki"
+        android:icon="@drawable/ic_search_24"
+        android:title="@string/menu_appbar_title_search"
+        app:showAsAction="ifRoom" />
+
 </menu>
