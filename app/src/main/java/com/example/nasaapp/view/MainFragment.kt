@@ -23,6 +23,7 @@ import com.example.nasaapp.R
 import com.example.nasaapp.databinding.MainFragmentBinding
 import com.example.nasaapp.model.*
 import com.example.nasaapp.viewmodel.AppState
+import com.example.nasaapp.viewmodel.FavoriteViewModel
 import com.example.nasaapp.viewmodel.MainViewModel
 import com.example.nasaapp.viewmodel.SelectedTab
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -44,14 +45,19 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
     private val adapter = MarsPhotoAdapter.newInstance()
     private var fullScreen = false
     private var searchVisible = false
+    private var currentPOD: PodDTO? = null
+    private val favoriteViewModel: FavoriteViewModel by lazy {
+        ViewModelProvider(this)[FavoriteViewModel::class.java]
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+//        favoriteViewModel = ViewModelProvider(this)[FavoriteViewModel::class.java]
         setBottomSheetBehavior(binding.includeBottomSheet.bottomSheetContainer)
-        viewModel.getData(getToday()).observe(viewLifecycleOwner, { appState ->
+        viewModel.getData(getToday()).observe(viewLifecycleOwner) { appState ->
             renderData(appState)
-        })
+        }
         setAppBar()
 
         binding.apply {
@@ -162,6 +168,7 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
                         when (serverData.mediaType) {
                             "image" -> {
                                 setImagePod(serverData)
+                                currentPOD = serverData
                             }
                             "video" -> {
                                 setDataVideo(serverData)
@@ -256,7 +263,7 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_appbar_favorite -> {
-                binding.root.toast("Добавил в избранные")
+                saveToFavorite()
             }
             R.id.menu_appbar_profile -> {
                 binding.root.toast("Открыл профиль")
@@ -267,6 +274,16 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun saveToFavorite() {
+        if (currentPOD != null) {
+            favoriteViewModel.insertData(currentPOD!!)
+            binding.bottomAppBar.menu.findItem(R.id.menu_appbar_favorite).setIcon(R.drawable.ic_favorite_24)
+            binding.root.toast("Добавлено в избранные")
+        } else {
+            binding.root.toast("Данные не загружены")
+        }
     }
 
     private fun showSearch() {

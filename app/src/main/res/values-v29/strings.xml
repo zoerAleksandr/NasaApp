@@ -8,4 +8,5 @@
     <string name="menu_appbar_title_search">search</string>
     <string name="chip_video">Видео</string>
     <string name="btn_text_reload">Обновить</string>
+    <string name="text_for_empty_list">Список избранного пустой</string>
 </resources>
