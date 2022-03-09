@@ -19,6 +19,7 @@ import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.example.nasaapp.R
 import com.example.nasaapp.databinding.MainFragmentBinding
 import com.example.nasaapp.model.*
@@ -53,7 +54,6 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-//        favoriteViewModel = ViewModelProvider(this)[FavoriteViewModel::class.java]
         setBottomSheetBehavior(binding.includeBottomSheet.bottomSheetContainer)
         viewModel.getData(getToday()).observe(viewLifecycleOwner) { appState ->
             renderData(appState)
@@ -197,7 +197,9 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
     private fun setDataVideo(data: PodDTO) {
         val videoId = data.url?.split("embed/", "?rel=0")?.get(1)
         binding.apply {
-            imageDay.load("https://img.youtube.com/vi/$videoId/maxresdefault.jpg")
+            imageDay.load("https://img.youtube.com/vi/$videoId/maxresdefault.jpg"){
+                transformations(RoundedCornersTransformation(10f))
+            }
             playVideo.show()
             playVideo.setOnClickListener {
                 val intent =
@@ -214,7 +216,9 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
                 recyclerView.hide()
                 playVideo.hide()
                 imageDay.show()
-                imageDay.load(data.url)
+                imageDay.load(data.url){
+                    transformations(RoundedCornersTransformation(10f))
+                }
             }
             setDataBottomSheet(data.title, data.explanation)
         } else {

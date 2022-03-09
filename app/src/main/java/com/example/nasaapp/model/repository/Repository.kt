@@ -24,12 +24,11 @@ class Repository(private val localDataSource: PodDAO) : LocalRepository {
 
     private fun convertorToListPod(entityList: List<PodEntity>): List<PodDTO> {
         return entityList.map {
-            PodDTO(it.date, it.description, null, null, it.title, it.imageURL)
+            PodDTO(it.id, it.date, it.description, null, null, it.title, it.imageURL)
         }
     }
 
     private fun convertorToEntity(podDTO: PodDTO): PodEntity {
-        return PodEntity(0, podDTO.title!!, podDTO.date!!, podDTO.explanation!!, podDTO.url!!)
+        return PodEntity(podDTO.id, podDTO.title!!, podDTO.date!!, podDTO.explanation!!, podDTO.url!!)
     }
-
 }

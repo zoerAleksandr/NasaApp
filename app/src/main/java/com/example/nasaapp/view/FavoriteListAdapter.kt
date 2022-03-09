@@ -3,47 +3,73 @@ package com.example.nasaapp.view
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.RoundedCornersTransformation
+import com.example.nasaapp.R
 import com.example.nasaapp.databinding.ItemLayoutBinding
 import com.example.nasaapp.model.PodDTO
-import com.example.nasaapp.model.hide
-import com.example.nasaapp.model.show
 
-
-class FavoriteListAdapter : RecyclerView.Adapter<FavoriteListAdapter.ImageViewHolder>(),
+class FavoriteListAdapter(
+    private val dataList: MutableList<Pair<PodDTO, Boolean>>,
+) : RecyclerView.Adapter<FavoriteListAdapter.ImageViewHolder>(),
     ItemTouchHelperAdapter {
-    private var list: MutableList<PodDTO> = mutableListOf()
-    private var itemDeployed = false
+    var removeItemCallback: RemoveItemCallback? = null
 
     companion object {
-        fun newInstance() = FavoriteListAdapter()
+        fun newInstance() = FavoriteListAdapter(dataList = mutableListOf())
     }
 
     inner class ImageViewHolder(private val binding: ItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
-        fun bind(podDTO: PodDTO) {
+
+        private val zoom = 3
+        private val paramsMin = binding.image.layoutParams
+        private val paramsMax = binding.image.layoutParams
+        private val maxWidth = paramsMax.width * zoom
+        private val maxHeight = paramsMax.height * zoom
+        val container = binding.root
+
+        fun bind(data: Pair<PodDTO, Boolean>) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 binding.apply {
-                    title.text = podDTO.title
-                    date.text = podDTO.date
-                    description.text = podDTO.explanation
-                    image.load(podDTO.url)
+                    title.text = data.first.title
+                    date.text = data.first.date
+                    description.text = data.first.explanation
+                    image.load(data.first.url) {
+                        transformations(RoundedCornersTransformation(10f))
+                    }
+                    binding.description.visibility = if (data.second) View.VISIBLE else View.GONE
+
+                    /* Следующее выражение может давать некорректный результат на эмуляторе,
+                     лучше тестировать на реальном устройстве */
+                    binding.image.layoutParams =
+                        if (data.second) paramsMax.apply {
+                            width = maxWidth
+                            height = maxHeight
+                        } else paramsMin
+
                 }
                 binding.root.setOnClickListener {
-                    OnListItemClickListener {
-                        if (itemDeployed) binding.description.hide() else binding.description.show()
-                        itemDeployed = !itemDeployed
-                        notifyItemChanged(layoutPosition)
-                    }
+                    onListItemClickListener.onItemClick()
                 }
             }
         }
 
-        private fun removeItem() {
-            list.removeAt(layoutPosition)
-            notifyItemRemoved(layoutPosition)
+        private val onListItemClickListener = object : OnListItemClickListener {
+            override fun onItemClick() {
+                toggleText()
+            }
+        }
+
+        private fun toggleText() {
+            dataList[layoutPosition] = dataList[layoutPosition].let {
+                it.first to !it.second
+            }
+            notifyItemChanged(layoutPosition)
         }
 
         override fun onItemSelected() {
@@ -51,7 +77,7 @@ class FavoriteListAdapter : RecyclerView.Adapter<FavoriteListAdapter.ImageViewHo
         }
 
         override fun onItemClear() {
-            itemView.setBackgroundColor(0)
+            // нечего делать
         }
     }
 
@@ -62,26 +88,33 @@ class FavoriteListAdapter : RecyclerView.Adapter<FavoriteListAdapter.ImageViewHo
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(dataList[position])
+        holder.container.animation =
+            AnimationUtils.loadAnimation(
+                holder.itemView.context,
+                R.anim.animation_for_recycler_view
+            )
     }
 
-    override fun getItemCount() = list.size
+    override fun getItemCount() = dataList.size
 
     fun addList(newList: List<PodDTO>) {
-        list.addAll(newList)
-        Log.d("Debug", "${list.size}")
+        for (i in newList) {
+            dataList.add(Pair(first = i, second = false))
+        }
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        list.removeAt(fromPosition).apply {
-            list.add(if (toPosition > fromPosition) toPosition - 1 else toPosition, this)
+        dataList.removeAt(fromPosition).apply {
+            dataList.add(if (toPosition > fromPosition) toPosition - 1 else toPosition, this)
         }
+        Log.d("Debug", "$fromPosition $toPosition")
         notifyItemMoved(fromPosition, toPosition)
     }
 
     override fun onItemDismiss(position: Int) {
-        list.removeAt(position)
+        removeItemCallback?.remove(dataList[position].first)
+        dataList.removeAt(position)
         notifyItemRemoved(position)
     }
-
 }

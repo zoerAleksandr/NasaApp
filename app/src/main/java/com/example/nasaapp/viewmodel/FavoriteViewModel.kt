@@ -1,7 +1,5 @@
 package com.example.nasaapp.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +9,7 @@ import com.example.nasaapp.model.repository.LocalRepository
 import com.example.nasaapp.model.repository.Repository
 
 class FavoriteViewModel(
-    private val repository: LocalRepository = Repository(getPodDao()),
+    private val repository: LocalRepository = Repository.newInstance(getPodDao()),
     private val liveDataToObserve: MutableLiveData<FavoriteListState> = MutableLiveData(),
 ) : ViewModel() {
 
