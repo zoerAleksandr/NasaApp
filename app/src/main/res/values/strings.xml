@@ -17,8 +17,8 @@
     <string name="settings_fragment_app_bar_btn_save_text">Готово</string>
     <string name="menu_appbar_title_search">search</string>
 
-    <string name="tab_earth">Фото дня</string>
-    <string name="tab_mars">Марс</string>
+    <string name="tab_earth">Photo</string>
+    <string name="tab_mars">Mars</string>
     <string name="chip_video">Видео</string>
     <string name="placeholder_for_search_layout">Введите запрос</string>
     <string name="btn_text_reload">Обновить</string>

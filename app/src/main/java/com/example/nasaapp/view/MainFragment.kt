@@ -1,6 +1,9 @@
 package com.example.nasaapp.view
 
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.TextAppearanceSpan
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
@@ -11,6 +14,7 @@ import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -142,6 +146,20 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
             }
         }
     }
+// !!! Вопрос прподавателю !!!
+// Когда устонавливаю текст в TabItem через данный метод и в стиле указываю загруженный шрифт в формате ttf,
+// то все работает (шрифт применяется). Но если в стиле указать загружаемый шрифт, то он не применится.
+// Вопрос: как пользоваться загружаемым шрифтом в стилях?
+// P.S. временно решил вопрос указав шрифт в TabLayout xml
+    private fun setTextTabOne(): SpannableString {
+        return SpannableString("Фото дня").apply {
+            this.setSpan(
+                TextAppearanceSpan(context, R.style.StyleForTabs),
+                0, this.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+    }
 
     private fun renderData(appState: AppState) {
         when (appState) {
@@ -197,7 +215,7 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
     private fun setDataVideo(data: PodDTO) {
         val videoId = data.url?.split("embed/", "?rel=0")?.get(1)
         binding.apply {
-            imageDay.load("https://img.youtube.com/vi/$videoId/maxresdefault.jpg"){
+            imageDay.load("https://img.youtube.com/vi/$videoId/maxresdefault.jpg") {
                 transformations(RoundedCornersTransformation(10f))
             }
             playVideo.show()
@@ -216,7 +234,7 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
                 recyclerView.hide()
                 playVideo.hide()
                 imageDay.show()
-                imageDay.load(data.url){
+                imageDay.load(data.url) {
                     transformations(RoundedCornersTransformation(10f))
                 }
             }
@@ -255,6 +273,7 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
     private fun setDataBottomSheet(header: String?, desc: String?) {
         binding.includeBottomSheet.bottomSheetHeader.text =
             header ?: getString(R.string.header_bottom_sheet_default)
+
         binding.includeBottomSheet.bottomSheetText.text =
             desc ?: getString(R.string.desc_bottom_sheet_default)
     }
@@ -270,7 +289,10 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
                 saveToFavorite()
             }
             R.id.menu_appbar_profile -> {
-                binding.root.toast("Открыл профиль")
+//                binding.root.toast("Открыл профиль")
+                if (binding.myCustomView.isVisible){
+                    binding.myCustomView.hide()
+                }else binding.myCustomView.show()
             }
             R.id.search_wiki -> {
                 if (searchVisible) hideSearch() else showSearch()
@@ -283,7 +305,8 @@ class MainFragment : Fragment(R.layout.main_fragment), MyListener {
     private fun saveToFavorite() {
         if (currentPOD != null) {
             favoriteViewModel.insertData(currentPOD!!)
-            binding.bottomAppBar.menu.findItem(R.id.menu_appbar_favorite).setIcon(R.drawable.ic_favorite_24)
+            binding.bottomAppBar.menu.findItem(R.id.menu_appbar_favorite)
+                .setIcon(R.drawable.ic_favorite_24)
             binding.root.toast("Добавлено в избранные")
         } else {
             binding.root.toast("Данные не загружены")

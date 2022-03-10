@@ -1,6 +1,12 @@
 package com.example.nasaapp.view
 
 import android.graphics.Color
+import android.graphics.Typeface.BOLD
+import android.graphics.Typeface.NORMAL
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +42,7 @@ class FavoriteListAdapter(
         fun bind(data: Pair<PodDTO, Boolean>) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 binding.apply {
-                    title.text = data.first.title
+                    title.text = setTextSelected(data.first.title, data.second)
                     date.text = data.first.date
                     description.text = data.first.explanation
                     image.load(data.first.url) {
@@ -55,6 +61,31 @@ class FavoriteListAdapter(
                 }
                 binding.root.setOnClickListener {
                     onListItemClickListener.onItemClick()
+                }
+            }
+        }
+
+        private fun setTextSelected(text: String?, boolean: Boolean): SpannableString {
+            return if (boolean) {
+                SpannableString(text).apply {
+                    this.setSpan(
+                        StyleSpan(BOLD),
+                        0, this.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    this.setSpan(
+                        ForegroundColorSpan(Color.RED),
+                        0, this.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+            } else {
+                SpannableString(text).apply {
+                    this.setSpan(
+                        StyleSpan(NORMAL),
+                        0, this.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
                 }
             }
         }

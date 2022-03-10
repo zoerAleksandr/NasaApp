@@ -83,4 +83,10 @@
         <item name="placeholderText">@string/placeholder_for_search_layout</item>
         <item name="startIconDrawable">@drawable/ic_search_24</item>
     </style>
+
+    <style name="StyleForTabs" parent="Widget.Design.TabLayout">
+        <item name="android:fontFamily">@font/aldrich</item>
+        <item name="android:textColor">@color/color_for_text_dark</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>
