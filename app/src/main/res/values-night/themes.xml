@@ -44,4 +44,5 @@
         <item name="textColorSecondary">@color/gray_moon_dark_50</item>
     </style>
 
+    <dimen name="corners_image_view">5dp</dimen>
 </resources>

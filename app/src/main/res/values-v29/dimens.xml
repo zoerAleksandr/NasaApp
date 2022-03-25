@@ -14,4 +14,5 @@
     <dimen name="indicator_height">3dp</dimen>
     <dimen name="margin_top_text_input_layout">16dp</dimen>
     <dimen name="value_btn">48dp</dimen>
+    <dimen name="margin_for_item">8dp</dimen>
 </resources>

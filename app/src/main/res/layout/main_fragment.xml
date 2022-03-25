@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorBackground"
-    tools:context=".ui.main.MainFragment">
+    tools:context=".view.MainFragment">
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_container"
@@ -19,11 +19,21 @@
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container_main_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutDescription="@xml/main_fragment_search_scene">
+
+        <com.example.nasaapp.view.MyCustomView
+            android:id="@+id/myCustomView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:visibility="gone"
+            android:elevation="2dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -38,36 +48,31 @@
             android:layout_height="@dimen/value_btn"
             android:layout_marginVertical="@dimen/margin_top_text_input_layout"
             android:layout_marginStart="8dp"
+            android:backgroundTint="@color/transparent"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_back_24"
-            android:backgroundTint="@color/transparent"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@id/text_input_layout_search"
-            app:layout_constraintEnd_toStartOf="@id/text_input_layout_search"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_input_layout_search" />
+            app:layout_constraintStart_toEndOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_search"
             style="@style/StyleSearchInputLayout"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_top_text_input_layout"
             android:layout_marginVertical="@dimen/margin_top_text_input_layout"
+            android:layout_marginEnd="@dimen/margin_top_text_input_layout"
+            android:background="@color/white"
             android:orientation="horizontal"
-            android:scaleX="1"
-            android:scaleY="1"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back_input_layout"
             app:layout_constraintStart_toEndOf="@id/btn_back_input_layout"
-            app:layout_constraintTop_toTopOf="parent">
-
+            app:layout_constraintTop_toTopOf="@id/btn_back_input_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusableInTouchMode="true"/>
+                android:focusableInTouchMode="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,6 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="4dp"
+            app:tabTextAppearance="@style/StyleForTabs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -125,7 +131,7 @@
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorHeight="@dimen/indicator_height" />
 
-        <com.example.nasaapp.EquilateralImageView
+        <com.example.nasaapp.view.EquilateralImageView
             android:id="@+id/image_day"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -142,9 +148,9 @@
             android:id="@+id/play_video"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_play_24"
-            android:scaleType="centerCrop"
             android:backgroundTint="@color/transparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_play_24"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
@@ -166,7 +172,7 @@
             app:layout_constraintTop_toBottomOf="@id/tab_layout"
             tools:listitem="@layout/item_photo" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         android:id="@+id/include_bottom_sheet"
@@ -202,8 +208,8 @@
             android:id="@+id/text_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginHorizontal="@dimen/margin_16"
+            android:gravity="center"
             tools:text="@tools:sample/lorem/random" />
 
         <Button

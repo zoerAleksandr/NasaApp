@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.main.SettingsFragment">
+    tools:context=".view.SettingsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -34,38 +34,81 @@
             android:layout_marginBottom="4dp"
             android:text="@string/settings_fragment_subtitle_changed_theme" />
 
-        <RadioGroup
-            android:id="@+id/radio_group_changed_theme"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp">
+            android:orientation="horizontal">
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_btn_default_theme"
-                style="@style/TextSettingsFragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_fragment_radio_btn_text_default" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_mars"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/gray_for_card_view"
+                android:clickable="true"
+                android:elevation="8dp"
+                android:focusable="true">
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_btn_mars_theme"
-                style="@style/TextSettingsFragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_fragment_radio_btn_text_mars" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_btn_moon_theme"
-                style="@style/TextSettingsFragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_fragment_radio_btn_text_moon" />
+                    <TextView
+                        style="@style/TextCardTitleSettingsFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="марсианская" />
 
-        </RadioGroup>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="20dp"
+                        android:src="@drawable/mars_image" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_moon"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/gray_for_card_view"
+                android:clickable="true"
+                android:elevation="8dp"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextCardTitleSettingsFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="лунная" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="20dp"
+                        android:src="@drawable/moon_image" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
-            android:layout_height="1dp" />
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp" />
 
     </LinearLayout>
 
