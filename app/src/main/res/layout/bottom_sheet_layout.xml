@@ -34,7 +34,7 @@
                 android:layout_margin="@dimen/margin_16"
                 android:fontFamily="@font/aldrich"
                 android:gravity="center_horizontal"
-                android:textSize="@dimen/header_text_size"
+                android:textSize="@dimen/text_size"
                 android:textStyle="bold"
                 tools:text="@tools:sample/lorem" />
 

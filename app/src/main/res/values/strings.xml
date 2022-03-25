@@ -23,4 +23,5 @@
     <string name="placeholder_for_search_layout">Введите запрос</string>
     <string name="btn_text_reload">Обновить</string>
     <string name="text_for_empty_list">Список избранного пустой</string>
+    <string name="text_for_splash_screen">NASA</string>
 </resources>
