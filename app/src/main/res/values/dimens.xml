@@ -19,4 +19,9 @@
     <dimen name="margin_top_text_input_layout">16dp</dimen>
     <dimen name="value_btn">48dp</dimen>
     <dimen name="margin_for_item">8dp</dimen>
+
+    // splashScreen
+    <dimen name="size_image_logo">300dp</dimen>
+    <dimen name="text_size_splash">28sp</dimen>
+    <dimen name="distance_between_logo_and_text_splash">28sp</dimen>
 </resources>
